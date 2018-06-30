@@ -1,0 +1,88 @@
+plugins {
+    id 'play'
+    id 'idea'
+    id "com.github.lkishalmi.gatling" version "0.7.1"
+}
+
+def playVersion = "2.6.15"
+def scalaVersion = System.getProperty("scala.binary.version", /* default = */ "2.12")
+def gatlingVersion = getGlatlingVersion(scalaVersion)
+
+// Gatling 2.3.0 works for Scala 2.12
+// Gatling 2.2.5 works for Scala 2.11
+String getGlatlingVersion(String scalaVer) {
+    if (scalaVer == "2.12") "2.3.0" else "2.2.5"
+}
+
+model {
+    components {
+        play {
+            platform play: playVersion, scala: scalaVersion, java: '1.8'
+            injectedRoutesGenerator = true
+
+            sources {
+                twirlTemplates {
+                    defaultImports = TwirlImports.JAVA
+                }
+            }
+        }
+    }
+}
+
+project.sourceSets {
+    gatling {
+        scala.srcDirs = ["gatling"]
+    }
+}
+
+gatling {
+    sourceRoot = "gatling"
+    simulationsDir = "gatling"
+    toolVersion = gatlingVersion
+}
+dependencies {
+    play "com.typesafe.play:play-guice_$scalaVersion:$playVersion"
+    play "com.typesafe.play:play-logback_$scalaVersion:$playVersion"
+    play "com.typesafe.play:filters-helpers_$scalaVersion:$playVersion"
+    play "com.typesafe.play:play-java-jpa_$scalaVersion:$playVersion"
+    play "com.typesafe.play:play-ahc-ws_$scalaVersion:$playVersion"
+
+    play "com.codahale.metrics:metrics-core:3.0.1"
+    play "net.jodah:typetools:0.4.2"
+    play "com.h2database:h2:1.4.197"
+
+    play 'org.scala-lang:scala-library:2.11.1'
+    play "org.postgresql:postgresql:42.2.2"
+    play "org.hibernate:hibernate-core:5.2.9.Final"
+    play "org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.0.Final"
+
+    play "io.dropwizard.metrics:metrics-core:3.2.1"
+    play "com.palominolabs.http:url-builder:1.1.0"
+    play "net.jodah:failsafe:1.0.3"
+
+    play "org.mindrot:jbcrypt:0.3m"
+
+    playTest "io.gatling.highcharts:gatling-charts-highcharts:$gatlingVersion"
+    playTest "io.gatling:gatling-test-framework:$gatlingVersion"
+
+    play "org.webjars:webjars-play_$scalaVersion:2.6.2"
+    play "org.webjars:flot:0.8.3"
+    play "org.webjars:bootstrap:3.3.6"
+    play "org.webjars:bootstrap:3.3.6"
+
+    playTest "org.assertj:assertj-core:3.8.0"
+    playTest "org.awaitility:awaitility:3.0.0"
+}
+
+repositories {
+    jcenter()
+    maven {
+        name "lightbend-maven-releases"
+        url "https://repo.lightbend.com/lightbend/maven-release"
+    }
+    ivy {
+        name "lightbend-ivy-release"
+        url "https://repo.lightbend.com/lightbend/ivy-releases"
+        layout "ivy"
+    }
+}

@@ -1,0 +1,7 @@
+GET    /                     v1.user.UserController.list
+POST   /                     v1.user.UserController.create
+
+GET    /:id                  v1.user.UserController.show(id)
+PUT    /:id                  v1.user.UserController.update(id)
+
+POST   /login                v1.user.UserController.showByEmail()

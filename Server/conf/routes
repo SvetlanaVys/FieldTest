@@ -1,0 +1,9 @@
+GET     /                           controllers.HomeController.index()
+
+->     /v1/users                    users.Routes
+
+->     /v1/fields                   fields.Routes
+
+#GET     /chat                       controllers.HomeController.chat
+OPTIONS    /          controllers.HomeController.options(path: String ?= "")
+OPTIONS    /*path     controllers.HomeController.options(path)
