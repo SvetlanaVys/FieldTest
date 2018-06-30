@@ -1,0 +1,108 @@
+<div class="container">
+  <div class="title">
+    Fields
+    <!--<button (click)="staticModal.show()" type="button" class="titleButton btn btn-primary float-right">Add Field</button>-->
+    <button (click)="addField(); staticModal.show()" type="button" class="titleButton btn btn-primary float-right">Add Field</button>
+  </div>
+  <div class="generalForm formItem fieldItem">
+    <table class="fieldsTable table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Label</th>
+        <th scope="col">Type</th>
+        <th scope="col">Required</th>
+        <th scope="col">isActive</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let field of fields">
+        <td style="display: none">{{field.id}}</td>
+        <td>{{field.label}}</td>
+        <td>{{field.type}}</td>
+        <td>{{field.required}}</td>
+      <td>{{field.isActive}}</td>
+      <td class="editDel float-right">
+        <i (click)="editField(field); staticModal.show()" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        <i (click)="deleteField(field)" class="fa fa-trash" aria-hidden="true"></i>
+      </td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="posInfo float-left">1-3 of 3</p>
+    <button type="button" class="showAll float-right">All</button>
+    <div class="flippingItem row justify-content-center">
+      <input type="button" value="&#xf0d9;">
+      <span>1</span>
+      <input type="button" value="&#xf0da;">
+    </div>
+  </div>
+</div>
+
+<!--Modal Window For Deleting-->
+<div class="modal fade" name="modal" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Add Field</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <input type="text" [(ngModel)]="editedField.id" style="display: none"/>
+        <input type="text" [(ngModel)]="editedField.isDeleted" style="display: none"/>
+          <div class="form-group"
+               [class.has-error]="label.touched && label.invalid">
+            <span class="inputName">Label</span>
+            <input id="label" required type="text" class="inputInfo form-control" style="display: inline-block"
+                   name="password1" [(ngModel)]="editedField.label"
+                   #label="ngModel">
+            <span class="help-block"
+                    *ngIf="label.touched && label.errors?.required">
+              Label is required
+            </span>
+          </div>
+          <div class="form-group"
+               [class.has-error]="type.touched && type.invalid">
+            <span class="inputName">Type</span>
+            <select id="type" class="inputInfo" name="type" [(ngModel)]="editedField.type"
+                    #type="ngModel" required>
+              <option *ngFor="let type of types">
+                {{type}}
+              </option>
+            </select>
+            <span class="help-block"
+                  *ngIf="type.touched && type.errors?.required">
+              Type is required
+            </span>
+          </div>
+          <div class="form-group" *ngIf="editedField.type == 'Radio button' || editedField.type == 'Checkbox' || editedField.type == 'Combobox'">
+               <!--[class.has-error]="option.touched && option.invalid">-->
+            <span class="inputName">Options</span>
+            <!--<textarea id="option" class="inputInfo" name="option" [(ngModel)]="editedField.type" #option="ngModel">-->
+            <textarea id="option" class="inputInfo" name="option" [(ngModel)]="optionString" #option="ngModel" required>
+            </textarea>
+            <span class="help-block"
+                  *ngIf="option.touched && option.errors?.required">
+              Option is required
+            </span>
+          </div>
+          <div class="squareCheck form-check">
+            <input type="checkbox" class="form-check-input" id="required" [(ngModel)]="editedField.required">
+            <label class="form-check-label" for="required">Required</label>
+          </div>
+          <div class="squareCheck form-check">
+            <input type="checkbox" class="form-check-input" id="active" [(ngModel)]="editedField.isActive">
+            <label class="form-check-label" for="active">Is Active</label>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="staticModal.hide()" class="butLight btn btn-light">Cancel</button>
+        <button type="button" (click)="saveField()" class="butPrimary btn btn-primary"
+                [disabled]="label.invalid || type.invalid">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="center container">
+  <div class="formItem col-xs-12 col-md-6 col-lg-4">
+    <p class="logo">Logo<span>type</span></p>
+    <p class="subtitle">Sign Up</p>
+    <form class="form">
+      <span class="help-block" style="color: #ae4d4f"
+            *ngIf="errorMessage">
+          {{errorMessage}}
+      </span>
+      <div class="form-group"
+           [class.has-error]="email.touched && email.invalid">
+        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+               pattern="[^ @]*@[^ @]*" [(ngModel)]="currentUser.email" #email ="ngModel" required maxlength="50">
+        <div class="placeholder" [class.has-plaseholder]="!email.errors?.required">Email <span>*</span></div>
+        <span class="help-block"
+              *ngIf="email.touched && email.errors?.required">
+          Email is required
+        </span>
+        <span class="help-block"
+              *ngIf="email.touched && email.errors?.pattern">
+          Email is invalid
+        </span>
+      </div>
+      <div class="form-group"
+           [class.has-error]="password.touched && password.invalid">
+        <input id="password" required type="password" class="form-control"
+               name="password1" [(ngModel)]="currentUser.password"
+               #password="ngModel">
+        <div class="placeholder" [class.has-plaseholder]="!password.errors?.required">Password <span>*</span></div>
+        <span class="help-block"
+              *ngIf="password.touched && password.errors?.required">
+          Password is required
+        </span>
+      </div>
+      <div class="form-group"
+           [class.has-error]="confirmPassword.touched && confirmPassword.invalid">
+        <input name="confirmPassword" [appConfirmEqualValidator]="password" required
+               id="confirmPassword" type="password" class="form-control"
+               [(ngModel)]="currentUser.confirmPassword" #confirmPassword="ngModel">
+        <div class="placeholder" [class.has-plaseholder]="!confirmPassword.errors?.required">Confirm Password <span>*</span></div>
+        <span class="help-block"
+              *ngIf="confirmPassword.touched && confirmPassword.errors?.required">
+          Confirm Password is required
+        </span>
+        <span class="help-block"
+              *ngIf="confirmPassword.touched && confirmPassword.errors?.notEqual &&
+              !confirmPassword.errors?.required">
+          Password and Confirm Password does not match
+        </span>
+      </div>
+      <div class="form-group" [class.has-error]="firstName.touched && firstName.invalid">
+        <input type="text" pattern="^[а-яА-ЯёЁa-zA-Z]+$"
+               class="form-control" id="firstName"  name="firstName" placeholder="First Name" maxlength="50"
+               [(ngModel)]="currentUser.firstName" #firstName="ngModel">
+        <span class="help-block"
+              *ngIf="firstName.touched && firstName.errors?.pattern">
+          Only letters are allowed
+        </span>
+      </div>
+      <div class="form-group" [class.has-error]="lastName.touched && lastName.invalid">
+        <input type="text" pattern="^[а-яА-ЯёЁa-zA-Z]+$"
+               class="form-control" id="lastName" name="lastName" placeholder="Last Name"
+               maxlength="50" [(ngModel)]="currentUser.lastName" #lastName="ngModel">
+        <span class="help-block"
+              *ngIf="lastName.touched && lastName.errors?.pattern">
+          Only letters are allowed
+        </span>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number" maxlength="13"
+               [(ngModel)]="currentUser.phone" #phone="ngModel">
+      </div>
+      <button (click)="createAccount()" type="submit" class="formButton btn btn-primary"
+              [disabled]="email.invalid || password.invalid || confirmPassword.invalid || firstName.invalid || lastName.invalid">
+        Sign up</button>
+    </form>
+    <p class="textBlock">Already have account? <a href="/login">Log In</a></p>
+  </div>
+</div>

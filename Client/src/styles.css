@@ -1,0 +1,327 @@
+/*---------------------------FONTS---------------------------*/
+@font-face{
+  font-family: 'Roboto';
+  src: url('assets/fonts/Roboto-Regular.ttf');
+  font-weight: 400;
+}
+@font-face{
+  font-family: 'Roboto';
+  src: url('assets/fonts/Roboto-Medium.ttf');
+  font-weight: 600;
+}
+@font-face{
+  font-family: 'Roboto';
+  src: url('assets/fonts/Roboto-Bold.ttf');
+  font-weight: 700;
+}
+
+/*-------------------------GLOBAL-----------------------------*/
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+#body {
+  min-width: 320px;
+  background: #e0e0e0;
+  padding-bottom: 100px;
+}
+
+/*--error style--*/
+.has-error input {
+  border: 1px solid #ae4d4f!important;
+}
+.has-error .help-block {
+  font: 400 1.3rem/1.5rem 'Roboto';
+  color: #ae4d4f;
+}
+/*----------Centering----------*/
+.center {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+/*-----------------Logo---------*/
+.logo {
+  font: 700 3rem/3.6rem 'Roboto';
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.logo span {
+  font-weight: 400;
+  color: #002ce2;
+}
+
+/*----------------------------FORMS---------------------*/
+.formItem,
+.title {
+  font: 400 1.4rem/1.8rem 'Roboto';
+  color: #000;
+  background: #fcfcfc;
+  margin: auto;
+  padding: 2rem 3.5rem;
+  border: 2px solid #cdcdcd;
+  border-radius: 7px;
+  /*box-shadow: 0px 0px 16px -1px #cdcdcd;*/
+}
+/*------------------GENERAL FORM-----------*/
+.generalForm.formItem {
+  margin-top: 0;
+  padding: 2rem 2.3rem 1.5rem;
+  border-radius: 0 0 7px 7px;
+}
+.title {
+  font: 700 1.7rem/2rem 'Roboto';
+  margin-bottom: 0;
+  padding: 1.5rem;
+  border-radius: 7px 7px 0 0;
+  border-bottom: 0;
+}
+
+/*-------logo--------*/
+.formItem .logo {
+  text-align: center;
+}
+.formItem .subtitle {
+  font: 700 1.8rem/2.4rem 'Roboto';
+  text-align: center;
+  margin-bottom: 2rem;
+}
+/*--------------Form Input------------*/
+.formItem .form input {
+  font: 400 1.4rem/1.8rem 'Roboto';
+  padding: .8rem;
+  border: 1px solid #cdcdcd;
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px 0px #cdcdcd;
+}
+.formItem .form .form-group:nth-last-of-type(1) input {
+  margin-bottom: 1.8rem;
+}
+/*-input for general form-*/
+.generalForm.formItem .form .inputName {
+  margin-bottom: .6rem;
+}
+.generalForm.formItem .form .inputName.required::after {
+  display: inline-block;
+  content: '*';
+  color: #f00000;
+  padding-left: .5rem;
+}
+.generalForm.formItem .form input {
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1rem;
+}
+/*--for login form--*/
+.formItem.login .form .form-group:nth-last-of-type(2) input{
+  margin-bottom: 1.2rem;
+}
+/*---------plaseholders------*/
+/*---custom plaseholder--*/
+.formItem .form .form-group .placeholder {
+  font: 400 1.4rem/1.4rem 'Roboto';
+  color: #c5c5c5;
+  position: absolute;
+  top: 1.2rem;
+  left: .8rem;
+  z-index: 0;
+  width: calc(100% - 1.6rem);
+  cursor: text;
+}
+.formItem .form .form-group input:invalid + .placeholder
+.formItem .form .form-group .placeholder:hover,
+.formItem .form input:focus + .placeholder,
+.formItem .form input:hover + .placeholder,
+.has-plaseholder {
+  display: none;
+}
+.formItem .form .form-group {
+  position: relative;
+  overflow: hidden;
+}
+.formItem .form .form-group .placeholder span {
+  color: #f00000;
+}
+
+/*-------clear plaseholder-------------*/
+.formItem .form input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #c5c5c5;
+}
+.formItem .form input::-moz-placeholder { /* Firefox 19+ */
+  color: #c5c5c5;
+}
+.formItem .form input:-ms-input-placeholder { /* IE 10+ */
+  color: #c5c5c5;
+}
+.formItem .form input:-moz-placeholder { /* Firefox 18- */
+  color: #c5c5c5;
+}
+
+/*plaseholder focus*/
+.formItem .form input:focus::-webkit-input-placeholder {
+  color: rgba(0,0,0,.0);
+}
+.formItem .form input:focus::-moz-placeholder {
+  color: rgba(0,0,0,.0);
+}
+.formItem .form input:focus:-ms-input-placeholder {
+  color: rgba(0,0,0,.0);
+}
+.formItem .form input:focus:-moz-placeholder {
+  color: rgba(0,0,0,.0);
+}
+/*------------Form Button------------*/
+.formItem .form .formButton,
+.title .titleButton {
+  font: 400 1.3rem/1.5rem 'Roboto';
+  text-transform: uppercase;
+  width: 100%;
+  background: #002ce2;
+  border-radius: 5px;
+  padding: 1rem 3rem;
+  margin-bottom: 1.6rem;
+  transition: all .3s linear;
+}
+.formItem .form .formButton:hover,
+.title .titleButton:hover {
+  background: #002486;
+  outline: none;
+}
+.formItem .form .formButton:active,
+.title .titleButton:active {
+  font-weight: 700;
+  color: #002486;
+  background: rgba(0,0,0,.0);
+  border: 1px solid #002486;
+  outline: none;
+}
+/*title button*/
+.title .titleButton {
+  font-size: 1.2rem;
+  padding: .5rem 1rem;
+}
+.title .titleButton::before {
+  display: inline-block;
+  content: '\f067';
+  font: normal normal normal 14px/1 FontAwesome;
+  padding-right: .5rem;
+}
+/*------general form button---------*/
+.generalForm.formItem .form .formButton,
+.title .titleButton {
+  width: auto;
+  margin-bottom: 0;
+}
+/*----------------Text Block------------*/
+/*----form text blocks---*/
+.formItem .form .textBlock {
+  text-align: left;
+}
+/*----all text blocks----*/
+.formItem .textBlock {
+  font: 700 1.5rem/2rem 'Roboto';
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+.formItem .textBlock a {
+  display: inline-block;
+  color: #002ce2;
+  transition: all .3s linear;
+}
+.formItem .textBlock a:hover {
+  text-decoration: none;
+  color: #002486;
+}
+
+/*----ANSWER MESSAGE--*/
+.answerMes {
+  font: 700 1.5rem/2rem 'Roboto';
+  text-align: center;
+}
+.answerMes p {
+  font: 700 2rem/2.5rem 'Roboto';
+}
+.answerMes i:hover {
+  cursor: pointer;
+  color: #002486;
+}
+  /*--------------------------CHECKBOXES---------------------*/
+.squareCheck input[type=checkbox]{
+  display: none;
+}
+.squareCheck label::before {
+  display: inline-block;
+  content: '';
+  width: 1.3rem;
+  height: 1.3rem;
+  margin-right: 1rem;
+  border-radius: 3px;
+  border: 1px solid #9b9b9b;
+  box-shadow: inset 2px 3px 2px -2px #9b9b9b;
+  background: #f5f5f5;
+  z-index: 0;
+}
+.squareCheck input[type=checkbox]:checked + label::before {
+  display: inline-block;
+  content: "\2713";
+  text-shadow: 1px 1px 1px #002ce2;
+  font-size: 1rem;
+  color: #002ce2;
+  text-align: center;
+  line-height: 1.1rem;
+}
+.form-check {
+  padding-left: 0;
+}
+/**/
+.generalForm.formItem.respForm {
+  border-radius: 7px;
+}
+/*----------------RADIO BUTTONS-------------*/
+.radioBut {
+  margin-bottom: .4rem;
+}
+.radioBut input[type=radio]{
+  display: none;
+}
+.radioBut label::before {
+  font-weight: 700;
+  display: inline-block;
+  content: '';
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 1rem;
+  border-radius: 50%;
+  border: 1px solid #9b9b9b;
+  background: rgba(0,0,0,.0);
+  z-index: 0;
+}
+.radioBut input[type=radio]:checked + label::before {
+  display: inline-block;
+  content: "";
+  font-size: 1rem;
+  border: .5rem solid #002ce2;
+  text-align: center;
+  line-height: 1.1rem;
+}
+
+/*SELECT*/
+.select {
+  font: 400 1.4rem/1.8rem 'Roboto';
+  padding: .8rem;
+  border: 1px solid #cdcdcd;
+  border-radius: 5px;
+  box-shadow: 0px 0px 2px 0px #cdcdcd;
+  width: 100%;
+}
+/*--------------------------------------DESCTOP--------------------------------------*/
+@media screen and (min-width: 1170px) {
+  /*----------------Text Block------------*/
+  /*----form text blocks---*/
+  .formItem .form .textBlock {
+    display: flex;
+    justify-content: space-between;
+  }
+}

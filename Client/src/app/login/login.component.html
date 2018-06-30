@@ -1,0 +1,45 @@
+<div class="center container">
+  <div class="formItem login col-xs-12 col-md-6 col-lg-4">
+    <p class="logo">Logo<span>type</span></p>
+    <p class="subtitle">Log In</p>
+    <form class="form">
+      <span class="help-block" style="color: #ae4d4f"
+            *ngIf="errorMessage">
+          {{errorMessage}}
+      </span>
+      <div class="form-group"
+           [class.has-error]="email.touched && email.invalid">
+        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Email"
+               pattern="[^ @]*@[^ @]*" [(ngModel)]="userLogin.email" #email ="ngModel" required maxlength="50">
+        <span class="help-block"
+              *ngIf="email.touched && email.errors?.required">
+          Email is required
+        </span>
+        <span class="help-block"
+              *ngIf="email.touched && email.errors?.pattern">
+          Email is invalid
+        </span>
+      </div>
+      <div class="form-group"
+           [class.has-error]="password.touched && password.invalid">
+        <input id="password" required type="password" class="form-control" placeholder="Password"
+               name="password1" [(ngModel)]="userLogin.password"
+               #password="ngModel">
+        <span class="help-block"
+              *ngIf="password.touched && password.errors?.required">
+          Password is required
+        </span>
+      </div>
+      <div class="textBlock">
+        <div class="squareCheck form-check">
+          <input type="checkbox" class="form-check-input" id="remember">
+          <label class="form-check-label" for="remember">Remember me</label>
+        </div>
+        <a href="#">Forgot your password?</a>
+      </div>
+      <button type="button" (click)="login()" class="formButton btn btn-primary" [disabled]="email.invalid || password.invalid">Log in</button>
+    </form>
+    <p class="textBlock">Don`t have account? <a href="/register">Sign up</a></p>
+  </div>
+</div>
+

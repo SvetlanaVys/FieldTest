@@ -1,0 +1,36 @@
+<header id="header" class="header container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-light justify-content-between container">
+    <a class="logo navbar-brand" href="user">Logo<span>type</span></a>
+    <button (click)="show()" class="navbar-toggler" type="button" data-toggle="collapse"
+              data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div [ngClass]="{'show': isShow}" class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <p (click)="selectComponent('field')" [ngClass]="{'menuItemHover':component == 'field'}"
+             class="nav-link" href="field">Fields</p>
+        </li>
+        <li class="nav-item">
+          <p (click)="selectComponent('responses')" [ngClass]="{'menuItemHover':component == 'responses'}"
+             class="nav-link" href="test">Responses</p>
+        </li>
+        <li class="nav-item dropdown" customdropdown>
+          <p class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{currentUser.firstName}} {{currentUser.lastName}}
+          </p>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <p (click)= "selectComponent('edit')" class="dropdown-item">Edit Profile</p>
+            <p (click)= "selectComponent('changePas')" class="dropdown-item">Change Password</p>
+            <p (click)="logout()" class="dropdown-item">Log Out</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<app-field *ngIf="(component == 'field')"></app-field>
+<app-edit-profile *ngIf="(component == 'edit')"></app-edit-profile>
+<app-change-password *ngIf="(component == 'changePas')"></app-change-password>
+<app-response *ngIf="(component == 'responses')"></app-response>

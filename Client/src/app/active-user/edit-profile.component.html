@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="title  col-xs-12 col-md-6 col-lg-4">Edit Profile</div>
+  <div class="generalForm formItem col-xs-12 col-md-6 col-lg-4">
+    <form class="form">
+      <div class="form-group" [class.has-error]="firstName.touched && firstName.invalid">
+        <p class="inputName">First Name</p>
+        <input type="text" pattern="^[а-яА-ЯёЁa-zA-Z]+$"
+               class="form-control" id="firstName"  name="firstName"maxlength="50"
+               [(ngModel)]="currentUser.firstName" #firstName="ngModel">
+        <span class="help-block"
+              *ngIf="firstName.touched && firstName.errors?.pattern">
+          Only letters are allowed
+        </span>
+      </div>
+      <div class="form-group" [class.has-error]="lastName.touched && lastName.invalid">
+        <p class="inputName">Last Name</p>
+        <input type="text" pattern="^[а-яА-ЯёЁa-zA-Z]+$"
+               class="form-control" id="lastName" name="lastName"
+               maxlength="50" [(ngModel)]="currentUser.lastName" #lastName="ngModel">
+        <span class="help-block"
+              *ngIf="lastName.touched && lastName.errors?.pattern">
+          Only letters are allowed
+        </span>
+      </div>
+      <div class="form-group" [class.has-error]="email.touched && email.invalid">
+        <p class="inputName required">Email</p>
+        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+               pattern="[^ @]*@[^ @]*" [(ngModel)]="currentUser.email" #email ="ngModel" required maxlength="50">
+        <span class="help-block"
+              *ngIf="email.touched && email.errors?.required">
+          Email is required
+        </span>
+        <span class="help-block"
+              *ngIf="email.touched && email.errors?.pattern">
+          Email is invalid
+        </span>
+      </div>
+      <div class="form-group" [class.has-error]="lastName.touched && lastName.invalid">
+        <p class="inputName">Phone</p>
+        <input type="text" pattern="^[а-яА-ЯёЁa-zA-Z]+$"
+               class="form-control" id="phone" name="phone"
+               maxlength="50" [(ngModel)]="currentUser.phone" #phone="ngModel">
+      </div>
+      <button (click)="editUser()" type="submit" class="formButton btn btn-primary"
+              [disabled]="email.invalid || firstName.invalid || lastName.invalid">Save</button>
+    </form>
+  </div>
+</div>
+
