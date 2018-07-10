@@ -62,7 +62,7 @@ export class ResponseComponent implements OnInit {
     }
     for (const response of responses) {
       this.responsesArray[response.row][response.field.id] = response.content;
-      this.max = Math.max(this.max, this.array.length-1);
+      this.max = Math.max(this.max, response.row);
     }
     // this.makeStep(0);
     this.genSequence(0, this.max);
