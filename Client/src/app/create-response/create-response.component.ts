@@ -98,19 +98,34 @@ export class CreateResponseComponent implements OnInit {
       }
     }
 
+    this.fieldList[option.field.label] = this.fieldOptionsResult[option.field.id].join(', ');
+    // alert(this.fieldOptionsResult[option.field.id].length);
+    // for (let i = 0; i < this.fieldOptionsResult[option.field.id].length; i++) {
+    //   alert(this.fieldOptionsResult[option.field.id][i]);
+    // }
+
   }
 
   // save users`s answer
   create() {
+    // this.servResp.getResponse().subscribe((data: Response[]) => {
+    //     this.responses = data;
+    //   for (const response of this.responses) {
+    //     alert(response);
+    //   }
+    // });
 
     for (const field of this.fields) {
-      alert(this.fieldList[field.label]);
+      // alert(field.type);
       if (this.fieldList[field.label] !== '') {
-        if (field.type ===  'Radio button' || field.type === 'Checkbox') {
-          this.response = new Response(null, this.fieldOptionsResult[field.id].join(', '), field.rowNumber, field);
-        } else {
+        // alert(this.fieldList[field.label]);
+        // if (field.type ===  'Radio button' || field.type === 'Checkbox') {
+          // alert(this.fieldOptionsResult[field.id]);
+          // this.response = new Response(null, this.fieldOptionsResult[field.id].join(', '), field.rowNumber, field);
+        // } else {
+        // alert(this.fieldList[field.label]);
           this.response = new Response(null, this.fieldList[field.label], field.rowNumber, field);
-        }
+        // }
         this.servResp.createResponse(this.response).subscribe(data => {});
       }
       field.rowNumber += 1;
@@ -133,5 +148,11 @@ export class CreateResponseComponent implements OnInit {
   toLogin() {
     this.router.navigate(['/login']);
   }
+
+  // mackeType(fields: Field[]) {
+  //   for (const field of fields) {
+  //     this.type[field.type] = 'radio';
+  //   }
+  // }
 
 }

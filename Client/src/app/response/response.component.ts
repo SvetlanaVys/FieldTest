@@ -57,13 +57,54 @@ export class ResponseComponent implements OnInit {
   createResponsesArray(responses: Response[]) {
     for (const response of responses) {
       this.responsesArray[response.row] = new Object();
-      this.array.push(response.row);
-      this.startPos = this.array[0];
+      // this.array.push(response.row);
+      // this.startPos = this.array[0];
     }
     for (const response of responses) {
       this.responsesArray[response.row][response.field.id] = response.content;
-      this.max = Math.max(this.max, this.array.length - 1);
+      this.max = Math.max(this.max, this.array.length-1);
     }
+    // this.makeStep(0);
+    this.genSequence(0, this.max);
     this.isReady = true;
+  }
+
+  // arrow to next block of responses
+  forward() {
+    this.makeStep(this.step);
+    this.page++;
+  }
+
+  // arrow to previous block of responses
+  back() {
+    this.makeStep(0 - this.step);
+    this.page--;
+  }
+
+  // show all responses
+  showAll() {
+    if (this.isAll) {
+      this.endPos = this.max;
+    } else {
+      this.endPos = this.step - 1;
+    }
+    this.startPos = 0;
+    this.genSequence(this.startPos, this.endPos);
+    this.isAll = !this.isAll;
+  }
+
+  // calculate start and end positions
+  makeStep(step: number) {
+    this.startPos += step;
+    this.endPos = Math.min(this.startPos + this.step - 1, this.max);
+    this.genSequence(this.startPos, this.endPos);
+  }
+
+  genSequence(start: number, end: number) {
+    this.array = [];
+    for (let i = start; i <= end ; i++) {
+      this.array.push(i);
+      this.isReady = true;
+    }
   }
 }

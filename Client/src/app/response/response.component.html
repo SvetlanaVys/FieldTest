@@ -23,11 +23,11 @@
       </tbody>
     </table>
     <p class="posInfo float-left">{{startPos + 1}}-{{endPos + 1}} of {{max + 1}}</p>
-    <button type="button" class="showAll float-right">All</button>
+    <button (click)="showAll()" type="button" class="showAll float-right">All</button>
     <div class="flippingItem row justify-content-center">
-      <input type="button" value="&#xf0d9;" [disabled]="startPos == 0">
+      <input (click)="back()" type="button" value="&#xf0d9;" [disabled]="startPos == 0">
       <span>{{page}}</span>
-      <input type="button" value="&#xf0da;" [disabled]="endPos == max">
+      <input (click)="forward()" type="button" value="&#xf0da;" [disabled]="endPos == max">
     </div>
   </div>
 </div>
