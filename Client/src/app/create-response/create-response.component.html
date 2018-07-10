@@ -11,51 +11,11 @@
     </div>
   </nav>
 </header>
-<!--<div class="container">-->
-  <!--<div class="generalForm formItem respForm col-xs-12 col-md-6 col-lg-4">-->
-    <!--<form class="form" *ngIf="!isAnswer">-->
-      <!--<div class="form-group">-->
-        <!--<p class="inputName required">Current Password</p>-->
-        <!--<input type="password" class="form-control" id="currentPas">-->
-      <!--</div>-->
-      <!--<div class="form-group">-->
-        <!--<p class="inputName required">New Password</p>-->
-        <!--<input type="password" class="form-control" id="newPas">-->
-      <!--</div>-->
-      <!--<div class="form-group">-->
-        <!--<p class="inputName">Sex</p>-->
-        <!--<div class="radioBut form-check">-->
-          <!--<input name="sex" type="radio" id="male">-->
-          <!--<label class="form-check-label" for="male">Male</label>-->
-        <!--</div>-->
-        <!--<div class="radioBut form-check">-->
-          <!--<input name="sex" type="radio" id="female">-->
-          <!--<label class="form-check-label" for="female">Female</label>-->
-        <!--</div>-->
-      <!--</div>-->
-      <!--<div class="form-group">-->
-        <!--<p class="inputName required">Confirm New Password</p>-->
-        <!--<input type="password" class="form-control" id="confirmPas">-->
-      <!--</div>-->
-      <!--<div class="form-group">-->
-        <!--<p class="inputName required">Data</p>-->
-        <!--<input type="datetime-local" class="form-control" id="data">-->
-      <!--</div>-->
-      <!--<button (click)="create()" type="submit" class="formButton btn btn-primary">Submit</button>-->
-    <!--</form>-->
-    <!--<div class="answerMes" *ngIf="isAnswer">-->
-      <!--<p>Thank You!</p>-->
-      <!--Your response was saved.-->
-      <!--<i (click)="back()" class="fa fa-long-arrow-right" aria-hidden="true"></i>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
-
 <div class="container" *ngIf="isReady">
   <div class="generalForm formItem respForm col-xs-12 col-md-6 col-lg-4">
     <form class="form" *ngIf="!isAnswer">
       <div class="form-group" *ngFor="let field of fields">
-        <div *ngIf="type[field.type] == 'text' || type[field.type] =='date-local'">
+        <div *ngIf="type[field.type] == 'text' || type[field.type] =='date'">
           <p class="inputName" [ngClass]="{'required': field.required}">{{field.label}}</p>
           <input type={{type[field.type]}} class="form-control"
                  [(ngModel)]="fieldList[field.label]" name="fieldList[field.label]">
@@ -63,10 +23,11 @@
         <div *ngIf="type[field.type] == 'radio' || type[field.type] =='checkbox'"
              [ngClass]="{'radioBut': type[field.type] == 'radio', 'squareCheck': type[field.type] =='checkbox'}">
           <p class="inputName" [ngClass]="{'required': field.required}">{{field.label}}</p>
-          <div *ngFor="let option of this.fieldOptions[field.label]">
-            <input type={{type[field.type]}} id="{{option}}" [value]="123"
-                   [(ngModel)]="fieldList[field.label]" name="fieldList[field.label]">
-            <label class="form-check-label" for="{{option}}">{{option}}</label>
+          <div *ngFor="let option of this.fieldOptions[field.id]">
+            <input type={{type[field.type]}} id="{{option.name}}"
+                   [(ngModel)]="fieldList[field.label]" name="fieldList[field.label]"
+                   (change)="saveOptionAnswer(option, $event.target.checked, type[field.type])">
+            <label class="form-check-label" for="{{option.name}}">{{option.name}}</label>
             <p>{{fieldList[field.label]}}</p>
           </div>
         </div>
@@ -74,7 +35,7 @@
           <p class="inputName" [ngClass]="{'required': field.required}">{{field.label}}</p>
           <select class="select"
                   [(ngModel)]="fieldList[field.label]" name="fieldList[field.label]">
-            <option *ngFor="let option of this.fieldOptions[field.label]"> {{option}}</option>
+            <option *ngFor="let option of this.fieldOptions[field.id]"> {{option.name}}</option>
           </select>
         </div>
         <div *ngIf="type[field.type] == 'textarea'">
@@ -82,7 +43,7 @@
           <textarea class="inputInfo" [(ngModel)]="fieldList[field.label]" name="fieldList[field.label]"></textarea>
         </div>
       </div>
-      <button (click)="create()" type="submit" class="formButton btn btn-primary">Submit</button>
+      <button (click)="create()" type="button" class="formButton btn btn-primary">Submit</button>
     </form>
     <div class="answerMes" *ngIf="isAnswer">
       <p>Thank You!</p>

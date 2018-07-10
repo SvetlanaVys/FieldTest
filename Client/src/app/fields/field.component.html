@@ -1,7 +1,6 @@
 <div class="container">
   <div class="title">
     Fields
-    <!--<button (click)="staticModal.show()" type="button" class="titleButton btn btn-primary float-right">Add Field</button>-->
     <button (click)="addField(); staticModal.show()" type="button" class="titleButton btn btn-primary float-right">Add Field</button>
   </div>
   <div class="generalForm formItem fieldItem">
@@ -51,22 +50,21 @@
         </button>
       </div>
       <div class="modal-body">
-          <input type="text" [(ngModel)]="editedField.id" style="display: none"/>
-        <input type="text" [(ngModel)]="editedField.isDeleted" style="display: none"/>
-          <div class="form-group"
+        <input type="text" [(ngModel)]="editedField.id" style="display: none"/>
+          <div class="modal-group form-group"
                [class.has-error]="label.touched && label.invalid">
-            <span class="inputName">Label</span>
-            <input id="label" required type="text" class="inputInfo form-control" style="display: inline-block"
+            <span class="inputName modalLabel">Label</span>
+            <input id="label" required type="text" class="inputInfo form-control"
                    name="password1" [(ngModel)]="editedField.label"
-                   #label="ngModel">
+                   #label="ngModel" style="display: inline-block">
             <span class="help-block"
                     *ngIf="label.touched && label.errors?.required">
               Label is required
             </span>
           </div>
-          <div class="form-group"
+          <div class="modal-group form-group"
                [class.has-error]="type.touched && type.invalid">
-            <span class="inputName">Type</span>
+            <span class="inputName modalLabel">Type</span>
             <select id="type" class="inputInfo" name="type" [(ngModel)]="editedField.type"
                     #type="ngModel" required>
               <option *ngFor="let type of types">
@@ -79,9 +77,7 @@
             </span>
           </div>
           <div class="form-group" *ngIf="editedField.type == 'Radio button' || editedField.type == 'Checkbox' || editedField.type == 'Combobox'">
-               <!--[class.has-error]="option.touched && option.invalid">-->
-            <span class="inputName">Options</span>
-            <!--<textarea id="option" class="inputInfo" name="option" [(ngModel)]="editedField.type" #option="ngModel">-->
+            <span class="inputName modalLabel">Options</span>
             <textarea id="option" class="inputInfo" name="option" [(ngModel)]="optionString" #option="ngModel" required>
             </textarea>
             <span class="help-block"

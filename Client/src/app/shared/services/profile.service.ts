@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import {User} from '../models/user';
 import {UserLogin} from '../models/userLogin';
-import {Option} from '../models/option';
+import {Password} from '../models/password';
 
 @Injectable()
 export class ProfileService {
@@ -20,8 +20,7 @@ export class ProfileService {
   }
 
   public logout() {
-    localStorage.removeItem('currentUser');
-    return true;
+    return this.http.get(this.url + '/logout');
   }
 
   getFielts() {
@@ -34,5 +33,9 @@ export class ProfileService {
 
   updateUser(id: number, user: User) {
     return this.http.put(this.url + '/' + id, user);
+  }
+
+  updateUserPassword(id: number, password: Password) {
+    return this.http.put(this.url + '/password/' + id, password);
   }
 }

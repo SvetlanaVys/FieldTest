@@ -26,7 +26,7 @@ html {
   background: #e0e0e0;
   padding-bottom: 100px;
 }
-
+/*------------Messages--------*/
 /*--error style--*/
 .has-error input {
   border: 1px solid #ae4d4f!important;
@@ -35,6 +35,17 @@ html {
   font: 400 1.3rem/1.5rem 'Roboto';
   color: #ae4d4f;
 }
+/*-----sucess---*/
+.success {
+  color: #4fbaa7!important;
+  text-align: center;
+  padding: .7rem;
+  background: rgba(79, 186, 167, .3);
+  border: #50af9c;
+  border-radius: 5px;
+  margin-bottom: .3rem;
+}
+
 /*----------Centering----------*/
 .center {
   height: 100vh;

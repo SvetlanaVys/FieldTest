@@ -1,10 +1,21 @@
-GET    /                     v1.field.FieldController.list
-POST   /                     v1.field.FieldController.create
+GET    /                     controllers.FieldController.list
 
-GET    /:id                 v1.field.FieldController.show(id)
-PUT    /:id                 v1.field.FieldController.update(id)
+GET    /alive                controllers.FieldController.listAlive
 
-POST  /options              v1.option.OptionController.list
-GET   /options/all              v1.option.OptionController.listOptions
-PUT   /options/:id          v1.option.OptionController.update(id)
-POST  /options/create       v1.option.OptionController.create
+POST   /                     controllers.FieldController.create
+
+PUT    /:id                  controllers.FieldController.update(id)
+
+DELETE /:id                  controllers.FieldController.delete(id)
+
+#----OPTIONS-----
+
+POST  /options               controllers.OptionController.listByField
+
+GET   /options/all           controllers.OptionController.list
+
+POST  /options/create        controllers.OptionController.create
+
+PUT   /options/:id           controllers.OptionController.update(id)
+
+DELETE /options/:id          controllers.OptionController.delete(id)

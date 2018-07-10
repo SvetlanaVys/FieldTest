@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {TestService} from '../shared/services/test.service';
 import {Router} from '@angular/router';
 import {ProfileService} from '../shared/services/profile.service';
 import {User} from '../shared/models/user';
@@ -30,8 +29,9 @@ export class ActiveUserComponent {
   }
 
   logout() {
-    if (this.serv.logout()) {
+    this.serv.logout().subscribe(data => {
+      localStorage.removeItem('currentUser');
       this.router.navigate(['/login']);
-    }
+    });
   }
 }

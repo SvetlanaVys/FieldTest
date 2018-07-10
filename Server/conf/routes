@@ -4,6 +4,8 @@ GET     /                           controllers.HomeController.index()
 
 ->     /v1/fields                   fields.Routes
 
-#GET     /chat                       controllers.HomeController.chat
+->     /v1/responses                responses.Routes
+
+GET     /chat                       controllers.HomeController.socket
 OPTIONS    /          controllers.HomeController.options(path: String ?= "")
 OPTIONS    /*path     controllers.HomeController.options(path)

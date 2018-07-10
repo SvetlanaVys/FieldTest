@@ -12,7 +12,6 @@ import { Directive, Input } from '@angular/core';
 export class ConfirmEqualValidatorDirective implements Validator {
   @Input('appConfirmEqualValidator') appConfirmEqualValidator: AbstractControl;
   validate(control: AbstractControl): { [key: string]: any } | null {
-    // const controlToCompare = control.parent.get(this.appConfirmEqualValidator);
     if (this.appConfirmEqualValidator.value !== control.value) {
       return { 'notEqual': true };
     }

@@ -13,35 +13,29 @@ export class RegisterComponent implements OnInit {
 
   user: User;
   currentUser: CurrentUser;
+  confPassword: string;
   message: string;
-  errorMessage: string;
+  success: boolean;
+
   constructor(private serv: ProfileService, public router: Router) {
     this.user = new User(0, '', '', '', '', '');
-    this.currentUser = new CurrentUser(0, '', '', '', '', '', '');
-
+    this.confPassword = '';
+    this.success = false;
   }
 
   ngOnInit() {
   }
 
   createAccount() {
-    this.makeUser(this.currentUser);
+    this.user.id = null;
     this.serv.createUser(this.user).subscribe(data => {
-      // localStorage.setItem('currentUser', JSON.stringify(data));
-      alert('Account was created' + data);
+      this.message = 'Account was created success';
+      this.success = true;
     }, err => {
-      this.errorMessage = 'Email already exist';
+      this.message = 'Email already exist';
+      this.success = false;
     });
 
   }
 
-  makeUser(currentUser: CurrentUser) {
-
-    this.user.id = currentUser.id;
-    this.user.email = currentUser.email;
-    this.user.password = currentUser.password;
-    this.user.firstName = currentUser.firstName;
-    this.user.lastName = currentUser.lastName;
-    this.user.phone = currentUser.phone;
-  }
 }

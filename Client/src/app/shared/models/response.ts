@@ -4,6 +4,6 @@ export class Response {
   constructor(
     public id: number,
     public content: string,
-    public field: Field,
-    public row: number) { }
+    public row: number,
+    public field: Field) { }
 }

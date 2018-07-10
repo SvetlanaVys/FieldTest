@@ -4,15 +4,9 @@ import com.codahale.metrics.Slf4jReporter;
 import com.google.inject.AbstractModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import v1.option.JPAOptionRepository;
-import v1.option.OptionRepository;
-import v1.user.UserRepository;
-import v1.user.JPAUsersRepository;
-import v1.field.FieldRepository;
-import v1.field.JPAFieldRepository;
+import repositories.*;
 
 import javax.inject.Provider;
-import javax.xml.ws.Response;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -31,9 +25,11 @@ public class Module extends AbstractModule {
     public void configure() {
         bind(MetricRegistry.class).toProvider(MetricRegistryProvider.class).asEagerSingleton();
        // bind(PostRepository.class).to(JPAPostRepository.class).asEagerSingleton();
-        bind(UserRepository.class).to(JPAUsersRepository.class).asEagerSingleton();
+        bind(ProfileRepository.class).to(JPAProfileRepository.class).asEagerSingleton();
         bind(FieldRepository.class).to(JPAFieldRepository.class).asEagerSingleton();
         bind(OptionRepository.class).to(JPAOptionRepository.class).asEagerSingleton();
+        bind(ResponseRepository.class).to(JPAResponseRepository.class).asEagerSingleton();
+
     }
 }
 

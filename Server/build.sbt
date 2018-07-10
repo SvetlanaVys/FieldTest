@@ -1,3 +1,4 @@
+
 name := """Server"""
 
 version := "2.6.x"
@@ -32,6 +33,7 @@ libraryDependencies += guice
 libraryDependencies += ws
 libraryDependencies += javaJpa
 libraryDependencies += jdbc
+libraryDependencies += cache
 libraryDependencies += "com.h2database" % "h2" % "1.4.197"
 libraryDependencies += "org.postgresql" % "postgresql" % "42.2.2"
 

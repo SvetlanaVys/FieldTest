@@ -23,14 +23,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.serv.logIn(this.userLogin).subscribe((data: User[]) => {
-      this.some = data;
-      if (this.some !== '') {
-        localStorage.setItem('currentUser', JSON.stringify(data[0]));
-        this.router.navigate(['/profile']);
-      } else {
-        this.errorMessage = 'Wrong e-mail or password';
-      }
+    this.serv.logIn(this.userLogin).subscribe((data: User) => {
+        localStorage.setItem('currentUser', JSON.stringify(data));
+      this.router.navigate(['/profile']);
+    }, err => {
+      this.errorMessage = 'Wrong e-mail or password';
     });
   }
 

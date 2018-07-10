@@ -1,3 +1,5 @@
+import {Option} from './option';
+
 export class Field {
   constructor(
     public id: number,
@@ -5,5 +7,5 @@ export class Field {
     public type: string,
     public required: boolean,
     public isActive: boolean,
-    public isDeleted: boolean) { }
+    public rowNumber: number) { }
 }

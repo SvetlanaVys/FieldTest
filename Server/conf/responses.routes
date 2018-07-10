@@ -1,0 +1,7 @@
+GET    /                     controllers.ResponseController.list
+
+#POST   /                     controllers.ResponseController.listByField
+
+POST   /                     controllers.ResponseController.create
+
+PUT    /:id                  controllers.ResponseController.update(id)

@@ -3,14 +3,14 @@
     <p class="logo">Logo<span>type</span></p>
     <p class="subtitle">Sign Up</p>
     <form class="form">
-      <span class="help-block" style="color: #ae4d4f"
-            *ngIf="errorMessage">
-          {{errorMessage}}
-      </span>
+      <div class="help-block success" style="color: #ae4d4f"
+            *ngIf="message" [ngClass]="{'success': success}">
+          {{message}}
+      </div>
       <div class="form-group"
            [class.has-error]="email.touched && email.invalid">
         <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
-               pattern="[^ @]*@[^ @]*" [(ngModel)]="currentUser.email" #email ="ngModel" required maxlength="50">
+               pattern="[^ @]*@[^ @]*" [(ngModel)]="user.email" #email ="ngModel" required maxlength="50">
         <div class="placeholder" [class.has-plaseholder]="!email.errors?.required">Email <span>*</span></div>
         <span class="help-block"
               *ngIf="email.touched && email.errors?.required">
@@ -24,7 +24,7 @@
       <div class="form-group"
            [class.has-error]="password.touched && password.invalid">
         <input id="password" required type="password" class="form-control"
-               name="password1" [(ngModel)]="currentUser.password"
+               name="password1" [(ngModel)]="user.password"
                #password="ngModel">
         <div class="placeholder" [class.has-plaseholder]="!password.errors?.required">Password <span>*</span></div>
         <span class="help-block"
@@ -36,7 +36,7 @@
            [class.has-error]="confirmPassword.touched && confirmPassword.invalid">
         <input name="confirmPassword" [appConfirmEqualValidator]="password" required
                id="confirmPassword" type="password" class="form-control"
-               [(ngModel)]="currentUser.confirmPassword" #confirmPassword="ngModel">
+               [(ngModel)]="confPassword" #confirmPassword="ngModel">
         <div class="placeholder" [class.has-plaseholder]="!confirmPassword.errors?.required">Confirm Password <span>*</span></div>
         <span class="help-block"
               *ngIf="confirmPassword.touched && confirmPassword.errors?.required">
@@ -51,7 +51,7 @@
       <div class="form-group" [class.has-error]="firstName.touched && firstName.invalid">
         <input type="text" pattern="^[а-яА-ЯёЁa-zA-Z]+$"
                class="form-control" id="firstName"  name="firstName" placeholder="First Name" maxlength="50"
-               [(ngModel)]="currentUser.firstName" #firstName="ngModel">
+               [(ngModel)]="user.firstName" #firstName="ngModel">
         <span class="help-block"
               *ngIf="firstName.touched && firstName.errors?.pattern">
           Only letters are allowed
@@ -60,7 +60,7 @@
       <div class="form-group" [class.has-error]="lastName.touched && lastName.invalid">
         <input type="text" pattern="^[а-яА-ЯёЁa-zA-Z]+$"
                class="form-control" id="lastName" name="lastName" placeholder="Last Name"
-               maxlength="50" [(ngModel)]="currentUser.lastName" #lastName="ngModel">
+               maxlength="50" [(ngModel)]="user.lastName" #lastName="ngModel">
         <span class="help-block"
               *ngIf="lastName.touched && lastName.errors?.pattern">
           Only letters are allowed
@@ -68,7 +68,7 @@
       </div>
       <div class="form-group">
         <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number" maxlength="13"
-               [(ngModel)]="currentUser.phone" #phone="ngModel">
+               [(ngModel)]="user.phone" #phone="ngModel">
       </div>
       <button (click)="createAccount()" type="submit" class="formButton btn btn-primary"
               [disabled]="email.invalid || password.invalid || confirmPassword.invalid || firstName.invalid || lastName.invalid">

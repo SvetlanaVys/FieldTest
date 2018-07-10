@@ -16,10 +16,11 @@ export class FieldComponent implements OnInit {
   types: String[];
   editedField: Field;
   isNewRecord: Boolean;
+  isOptionsDeleted: Boolean;
   optionString: string;
 
   constructor(private serv: FieldService) {
-    this.editedField = new Field(0, '', '', false, false, false);
+    this.editedField = new Field(0, '', '', false, false, 0);
     this.options = [];
     this.types = ['Single line text', 'Multiline text', 'Radio button', 'Checkbox',  'Combobox', 'Date'];
   }
@@ -36,21 +37,29 @@ export class FieldComponent implements OnInit {
     });
   }
 
+  // load options for field
+  loadOptions(field: Field) {
+    this.serv.getOptionsForField(this.editedField).subscribe((data: Option[]) => {
+      this.options = data;
+      this.optionString = this.makeOptionsString(this.options);
+    });
+  }
+
   // add field
   addField() {
-    this.editedField = new Field(0, '', '', false, false, false);
+    if (this.fields.length !== 0) {
+      this.editedField = new Field(0, '', '', false, false, this.fields[0].rowNumber);
+    } else {
+      this.editedField = new Field(0, '', '', false, false, 0);
+    }
     this.isNewRecord = true;
     this.optionString = '';
   }
 
   // editing subjects
   editField(field: Field) {
-    this.editedField = new Field(field.id, field.label, field.type, field.required, field.isActive, field.isDeleted);
-
-    this.serv.getOptions(this.editedField).subscribe((data: Option[]) => {
-      this.options = data;
-      this.optionString = this.makeOptionsString(this.options);
-    });
+    this.editedField = new Field(field.id, field.label, field.type, field.required, field.isActive, field.rowNumber);
+    this.loadOptions(this.editedField);
   }
 
 
@@ -59,6 +68,7 @@ export class FieldComponent implements OnInit {
     // this.saveOptions(this.editedField);
     if (this.isNewRecord) {
       // add field
+      this.editedField.id = null;
       this.serv.createField(this.editedField).subscribe((data: Field) => {
         this.saveOptions(data);
         this.loadFields();
@@ -74,10 +84,9 @@ export class FieldComponent implements OnInit {
   }
 
   deleteField(field: Field) {
-    field.isDeleted = true;
-    this.serv.updateField(this.editedField.id, this.editedField).subscribe((data: Field) => {
-      this.loadFields();
-    });
+      this.serv.deleteField(field.id).subscribe(data => {
+        this.loadFields();
+      });
   }
 /*---------------------OPTIONS--------------------*/
   makeOptionsString(options: Option[]) {
@@ -95,33 +104,23 @@ export class FieldComponent implements OnInit {
     return optionArr;
   }
 
+  // save options
   saveOptions(field: Field) {
-    alert(field);
     const optionArr = this.makeOptionsArray(this.optionString);
 
     for (let i = 0; i < this.options.length; i++) {
       if (optionArr.length > i + 1) {
         this.options[i].name = optionArr[i];
-        alert(this.options[i].name + 'update');
+        this.serv.updateOption(this.options[i].id, this.options[i]).subscribe(data => {});
       } else {
         this.options[i].field = null;
-        alert(this.options[i].name + 'update set null');
+        this.serv.deleteOption(this.options[i].id).subscribe(data => {});
       }
-      this.serv.updateOption(this.options[i].id, this.options[i]).subscribe(data => {});
     }
     for (let i = this.options.length; i < optionArr.length; i++) {
       if (optionArr[i] !== '') {
-        alert(optionArr[i] + 'create' + field.id);
-        this.serv.createOption(new Option(0, optionArr[i], field)).subscribe(data => {});
+        this.serv.createOption(new Option(null, optionArr[i], field)).subscribe(data => {});
       }
     }
-
-    // for (let i = 0; i < this.options.length; i++) {
-    //   if(this.options[i].field != null){
-    //     alert(this.options[i]);
-    //
-    //   }
-    // }
-
   }
 }

@@ -1,7 +1,21 @@
-GET    /                     v1.user.UserController.list
-POST   /                     v1.user.UserController.create
+#GET    /                     v1.user.UserController.list
+#POST   /                     v1.user.UserController.create
 
-GET    /:id                  v1.user.UserController.show(id)
-PUT    /:id                  v1.user.UserController.update(id)
+#PUT    /:id                  v1.user.UserController.update(id)
 
-POST   /login                v1.user.UserController.showByEmail()
+#GET    /:id                  v1.user.UserController.show(id)
+
+GET    /                     controllers.ProfileController.list
+
+POST   /                     controllers.ProfileController.create
+
+PUT    /:id                  controllers.ProfileController.update(id)
+
+PUT    /password/:id         controllers.ProfileController.updatePassword(id)
+
+DELETE /:id                  controllers.ProfileController.delete(id)
+
+# POST   /login                v1.user.UserController.showByEmail()
+
+POST   /login                controllers.ProfileController.logIn
+GET    /logout               controllers.ProfileController.logout

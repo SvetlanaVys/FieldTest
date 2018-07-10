@@ -3,7 +3,7 @@ import { NgModule} from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 
-import {SHARED_COMPONENTS, SHARED_SERVICES, SHARED_DIRECTIVES} from './shared/shared';
+import {SHARED_COMPONENTS, SHARED_SERVICES, SHARED_DIRECTIVES, SHARED_PIPES} from './shared/shared';
 
 import {routing} from './app.routes';
 import { AppComponent } from './app.component';
@@ -18,6 +18,7 @@ import {UrlPermission} from './shared/guard/url.permission';
     AppComponent,
     SHARED_COMPONENTS,
     SHARED_DIRECTIVES,
+    SHARED_PIPES,
   ],
   imports: [
     BrowserModule,

@@ -6,32 +6,28 @@
     <table class="fieldsTable table table-striped">
       <thead>
       <tr>
-        <th scope="col">Label</th>
-        <th scope="col">Type</th>
-        <th scope="col">Required</th>
-        <th scope="col">isActive</th>
-        <th scope="col"></th>
+        <th *ngFor="let field of fields">
+          {{field.label}}
+        </th>
       </tr>
       </thead>
-      <tbody>
-      <!--<tr *ngFor="let field of fields">-->
-        <!--<td>{{field.label}}</td>-->
-        <!--<td>{{field.type}}</td>-->
-        <!--<td>{{field.required}}</td>-->
-        <!--<td>{{field.isActive}}</td>-->
-        <!--<td class="editDel float-right">-->
-          <!--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>-->
-          <!--<i class="fa fa-trash" aria-hidden="true"></i>-->
-        <!--</td>-->
-      <!--</tr>-->
+      <tbody *ngIf="isReady">
+      <tr *ngFor="let arr of array">
+        <td *ngFor="let field of fields">
+          <div *ngIf="field.type == 'Date' && this.responsesArray[arr][field.id] != undefined; else elseBlock">
+            {{this.responsesArray[arr][field.id] | formattedTime | formattedNull}}
+          </div>
+          <ng-template #elseBlock>{{this.responsesArray[arr][field.id] | formattedNull}}</ng-template>
+        </td>
+      </tr>
       </tbody>
     </table>
-    <p class="posInfo float-left">1-3 of 3</p>
+    <p class="posInfo float-left">{{startPos + 1}}-{{endPos + 1}} of {{max + 1}}</p>
     <button type="button" class="showAll float-right">All</button>
     <div class="flippingItem row justify-content-center">
-      <input type="button" value="&#xf0d9;">
-      <span>1</span>
-      <input type="button" value="&#xf0da;">
+      <input type="button" value="&#xf0d9;" [disabled]="startPos == 0">
+      <span>{{page}}</span>
+      <input type="button" value="&#xf0da;" [disabled]="endPos == max">
     </div>
   </div>
 </div>

@@ -16,6 +16,10 @@ export class FieldService {
     return this.http.get(this.url);
   }
 
+  getAliveFielts() {
+    return this.http.get(this.url + '/alive');
+  }
+
   createField(field: Field) {
     return this.http.post(this.url, field);
   }
@@ -31,7 +35,7 @@ export class FieldService {
   getAllOptions() {
     return this.http.get(this.url + '/options/all');
   }
-  getOptions(field: Field) {
+  getOptionsForField(field: Field) {
     return this.http.post(this.url + '/options', field);
   }
 
@@ -41,5 +45,8 @@ export class FieldService {
 
   updateOption(id: number, option: Option) {
     return this.http.put(this.url + '/options/' + id, option);
+  }
+  deleteOption(id: number) {
+    return this.http.delete(this.url + '/options/' + id);
   }
 }
